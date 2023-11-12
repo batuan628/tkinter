@@ -4,6 +4,7 @@ from tkinter import messagebox
 from PIL import Image,ImageTk
 from GUI.menuGUI import *
 from GUI.lophocGUI import *
+from GUI.khoilopGUI import *
 
 class MainGui:
     def __init__(self,root):
@@ -34,10 +35,10 @@ class MainGui:
         self.quydinh = Frame(self.root,highlightbackground="black",highlightthickness=1,bg="#CCFFFF")
         self.quydinh.place(x=0,y=30,width=1200,height=100)
         
-        self.bghinhnen=Image.open("hinhanh\hinh nen.jpg").resize((1200,530))
+        self.bghinhnen=Image.open("hinhanh\hinh nen.jpg").resize((1200,545))
         self.hinhnen=ImageTk.PhotoImage(self.bghinhnen)
         hienthi=Label(notebook_tab,bg="#CDC9C9",image=self.hinhnen)
-        hienthi.grid(pady=20,padx=0)
+        hienthi.grid(pady=0,padx=0)
         #
         
     
@@ -87,7 +88,11 @@ class MainGui:
         self.bgphuchoi=ImageTk.PhotoImage(file=r"hinhanh\phuc hoi du lieu.png")
         self.bgthoat=ImageTk.PhotoImage(file=r"hinhanh\thoat phan mem.png")
         self.bgthongtin=ImageTk.PhotoImage(file=r"hinhanh\thong tin.png")
-        
+        self.bgthem=ImageTk.PhotoImage(file=r"hinhanh\them.png")
+        self.bgluu=ImageTk.PhotoImage(file=r"hinhanh\luu.png")
+        self.bgxoa=ImageTk.PhotoImage(file=r"hinhanh\xoa.png")
+        self.bgreset=ImageTk.PhotoImage(file=r"hinhanh\cap nhat.png")
+        self.bg_thoat=ImageTk.PhotoImage(file=r"hinhanh\thoat.png")
         
         
 
@@ -119,7 +124,7 @@ class MainGui:
         self.lophoc.grid(row=0,column=0)
         textlop=Label(lop_khoilop,text="Lớp-Khối Lớp",font=("arial",8),fg="white",bg="#9999FF").grid(row=1,columnspan=3)
         
-        self.khoilop=Button(lop_khoilop,image=self.bgkhoilop,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Khối lớp",font=("arial",8),compound=TOP)
+        self.khoilop=Button(lop_khoilop,image=self.bgkhoilop,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Khối lớp",font=("arial",8),compound=TOP,command=self.khoilop_GUI)
         self.khoilop.grid(row=0,column=1)
         #
         
@@ -226,8 +231,7 @@ class MainGui:
         
         self.quidinhdiemdat=Button(quydinhchung,image=self.bgdiemdat,bg="#CCFFFF",height=63,width=60,relief=FLAT,text="Quy định \n về điểm đạt",font=("arial",8),compound=TOP)
         self.quidinhdiemdat.grid(row=0,column=2)
-        self.quan_ly()
-        
+        self.quan_ly()      
   
     def menu_GUI(self):
         hienthi_menu = MenuGUI(self.root,self.home_button)
@@ -251,19 +255,18 @@ class MainGui:
         self.quydinh.tkraise()
     
     def lophoc_GUI(self):
-        self.bgthem=ImageTk.PhotoImage(file=r"hinhanh\them.png")
-        self.bgluu=ImageTk.PhotoImage(file=r"hinhanh\luu.png")
-        self.bgxoa=ImageTk.PhotoImage(file=r"hinhanh\xoa.png")
-        self.bgreset=ImageTk.PhotoImage(file=r"hinhanh\cap nhat.png")
-        self.bg_thoat=ImageTk.PhotoImage(file=r"hinhanh\thoat.png")
-        self.xoa_label()
         hienthi_lop_hoc = lophocGUI(self.root,self.lophoc,notebook_tab,self.bgthem,
                                     self.bgxoa,self.bg_thoat,self.bgreset,self.bgluu,self.bgthongtin)
         hienthi_lop_hoc.lop_hoc()
+    
+    def khoilop_GUI(self):
+        hienthi_khoilop = khoi_lopGUI(self.root,self.khoilop,notebook_tab,self.bgthem,
+                                    self.bgxoa,self.bg_thoat,self.bgreset,self.bgluu)
+        hienthi_khoilop.khoi_lop()
         
     def xoa_label(self):
         for lab in notebook_tab.winfo_children():
-            lab.destroy()
+            print(lab)
         
         
         

@@ -56,7 +56,7 @@ class lophocGUI:
         xoa.grid(column=2,row=0,padx=1)
         reset=Button(self.chucnang,image=self.reset,relief=FLAT,bg="white")
         reset.grid(column=3,row=0,padx=1)
-        thoat=Button(self.chucnang,image=self.thoat,relief=FLAT)
+        thoat=Button(self.chucnang,image=self.thoat,relief=FLAT,command=self.thoat_khoi)
         thoat.grid(column=4,row=0,padx=1)
 #
         nhap_thongtin=Frame(nhapthongtin,highlightbackground="black",highlightthickness=1,bg="white")
@@ -111,8 +111,8 @@ class lophocGUI:
             themgiaovien = Button(thongtin,image=self.them,relief=FLAT,bg="white")
             themgiaovien.grid(row=12,column=0,sticky="E",padx=(0,20))
             
-            luu=Button(thongtin,text="Lưu vào danh sách",font=("arial",8),width=32,relief=FLAT)
-            luu.grid(row=13,pady=10,sticky="W",padx=20)
+            luu_thongtin=Button(thongtin,text="Lưu vào danh sách",font=("arial",8),width=32,relief=FLAT)
+            luu_thongtin.grid(row=13,pady=10,sticky="W",padx=20)
             
         #
     def tim_kiem(self):
@@ -132,4 +132,6 @@ class lophocGUI:
         timkiem_button=Button(timkiem_thongtin,text="Tìm kiếm",width=25)
         timkiem_button.grid(row=5,column=0,sticky=W,padx=15)
         
-          
+    def thoat_khoi(self):
+        
+        self.notebook_tab.forget(self.notebook_tab.index(self.notebook_tab.select()))     
