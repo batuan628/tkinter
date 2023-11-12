@@ -8,6 +8,8 @@ from GUI.khoilopGUI import *
 from GUI.hockyGUI import * 
 from GUI.namhocGUI import *
 from GUI.monhocGUI import *
+from GUI.diemGUI import *
+
 
 class MainGui:
     def __init__(self,root):
@@ -143,7 +145,7 @@ class MainGui:
         self.mon_hoc.grid(row=0,column=0)
         self.textmonhoc=Label(monhoc,text="Môn Học",font=("arial",8),fg="white",bg="#9999FF").grid(column=0,row=1,columnspan=3)
         
-        self.diem=Button(monhoc,image=self.bgdiem,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Điểm",font=("arial",8),compound=TOP)
+        self.diem=Button(monhoc,image=self.bgdiem,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Điểm",font=("arial",8),compound=TOP,command=self.diem_GUI)
         self.diem.grid(row=0,column=1)
         #
         
@@ -281,6 +283,10 @@ class MainGui:
         hienthi_monhoc = mon_hocGUI(self.root,self.mon_hoc,notebook_tab,self.bgthem,
                                     self.bgxoa,self.bg_thoat,self.bgluu)
         hienthi_monhoc.mon_hoc()
+    
+    def diem_GUI(self):
+        hienthi_diem = diemGUI(self.root,self.diem,notebook_tab,self.bg_thoat,self.bgluu,self.bgthongtin,self.bgthem)
+        hienthi_diem.nhap_diem()
     
     def xoa_label(self):
         for lab in notebook_tab.winfo_children():
