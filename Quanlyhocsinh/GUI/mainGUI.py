@@ -5,6 +5,9 @@ from PIL import Image,ImageTk
 from GUI.menuGUI import *
 from GUI.lophocGUI import *
 from GUI.khoilopGUI import *
+from GUI.hockyGUI import * 
+from GUI.namhocGUI import *
+from GUI.monhocGUI import *
 
 class MainGui:
     def __init__(self,root):
@@ -35,10 +38,10 @@ class MainGui:
         self.quydinh = Frame(self.root,highlightbackground="black",highlightthickness=1,bg="#CCFFFF")
         self.quydinh.place(x=0,y=30,width=1200,height=100)
         
-        self.bghinhnen=Image.open("hinhanh\hinh nen.jpg").resize((1200,545))
+        self.bghinhnen=Image.open("hinhanh\hinh nen.jpg").resize((1200,530))
         self.hinhnen=ImageTk.PhotoImage(self.bghinhnen)
         hienthi=Label(notebook_tab,bg="#CDC9C9",image=self.hinhnen)
-        hienthi.grid(pady=0,padx=0)
+        hienthi.grid(pady=20,padx=0)
         #
         
     
@@ -128,15 +131,15 @@ class MainGui:
         self.khoilop.grid(row=0,column=1)
         #
         
-        self.hocky=Button(namhoc,image=self.bghocky,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Học kỳ",font=("arial",8),compound=TOP)
+        self.hocky=Button(namhoc,image=self.bghocky,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Học kỳ",font=("arial",8),compound=TOP,command=self.hocky_GUI)
         self.hocky.grid(row=0,column=0)
         texthocky=Label(namhoc,text="Năm Học",font=("arial",8),fg="white",bg="#9999FF").grid(column=0,row=1,columnspan=3)
         
-        self.nam_hoc=Button(namhoc,image=self.bgnamhoc,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Năm học",compound=TOP,font=("arial",8))
+        self.nam_hoc=Button(namhoc,image=self.bgnamhoc,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Năm học",compound=TOP,font=("arial",8),command=self.namhoc_GUI)
         self.nam_hoc.grid(row=0,column=1)
         #
         
-        self.mon_hoc=Button(monhoc,image=self.bgmonhoc,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Môn học",font=("arial",8),compound=TOP)
+        self.mon_hoc=Button(monhoc,image=self.bgmonhoc,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Môn học",font=("arial",8),compound=TOP,command=self.monhoc_GUI)
         self.mon_hoc.grid(row=0,column=0)
         self.textmonhoc=Label(monhoc,text="Môn Học",font=("arial",8),fg="white",bg="#9999FF").grid(column=0,row=1,columnspan=3)
         
@@ -261,9 +264,24 @@ class MainGui:
     
     def khoilop_GUI(self):
         hienthi_khoilop = khoi_lopGUI(self.root,self.khoilop,notebook_tab,self.bgthem,
-                                    self.bgxoa,self.bg_thoat,self.bgreset,self.bgluu)
+                                    self.bgxoa,self.bg_thoat,self.bgluu)
         hienthi_khoilop.khoi_lop()
-        
+    
+    def hocky_GUI(self):
+        hienthi_hocky = hoc_kyGUI(self.root,self.hocky,notebook_tab,self.bgthem,
+                                    self.bgxoa,self.bg_thoat,self.bgluu)
+        hienthi_hocky.hoc_ky()
+    
+    def namhoc_GUI(self):
+        hienthi_namhoc = nam_hocGUI(self.root,self.nam_hoc,notebook_tab,self.bgthem,
+                                    self.bgxoa,self.bg_thoat,self.bgluu)
+        hienthi_namhoc.nam_hoc()
+    
+    def monhoc_GUI(self):
+        hienthi_monhoc = mon_hocGUI(self.root,self.mon_hoc,notebook_tab,self.bgthem,
+                                    self.bgxoa,self.bg_thoat,self.bgluu)
+        hienthi_monhoc.mon_hoc()
+    
     def xoa_label(self):
         for lab in notebook_tab.winfo_children():
             print(lab)

@@ -44,7 +44,7 @@ class lophocGUI:
         hienthi.column("NamHoc",width=145)
         hienthi.column("SiSo",width=145)
         hienthi.column("GiaoVien",width=145)
-        hienthi.place(x=0,y=30,height=480,width=940)
+        hienthi.place(x=0,y=30,width=940)
         
         self.chucnang=Label(self.congcu,bg="white")
         self.chucnang.grid(row=0,column=0)
