@@ -37,7 +37,7 @@ class nam_hocGUI:
         hienthi.column("Manamhoc",width=145)
         hienthi.column("Tennamhoc",width=145)
 
-        hienthi.place(x=0,y=30,width=400)
+        hienthi.place(x=0,y=30)
         
         
         self.chucnang=Label(self.congcu,bg="white")

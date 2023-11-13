@@ -41,7 +41,7 @@ class mon_hocGUI:
         hienthi.column("sotiet",width=145)
         hienthi.column("heso",width=145)
 
-        hienthi.place(x=0,y=30,width=600)
+        hienthi.place(x=0,y=30)
         
         
         self.chucnang=Label(self.congcu,bg="white")
@@ -71,8 +71,8 @@ class mon_hocGUI:
         tenmonhoc.grid(row=4,column=0,sticky="W",padx=20)
         
         Label(thongtin,text="Số Tiết:",font=("arial",10),bg="White",anchor="w").grid(row=5,column=0,sticky="W",padx=20)
-        sotiey=Entry(thongtin,font=("arial",10),highlightbackground="black",highlightthickness=1,width=25)
-        sotiey.grid(row=6,column=0,sticky="W",padx=20)
+        sotiet=Entry(thongtin,font=("arial",10),highlightbackground="black",highlightthickness=1,width=25)
+        sotiet.grid(row=6,column=0,sticky="W",padx=20)
             
         Label(thongtin,text="Hệ số:",font=("arial",10),bg="White",anchor="w").grid(row=7,column=0,sticky="W",padx=20)
         heso=Entry(thongtin,font=("arial",10),highlightbackground="black",highlightthickness=1,width=25)

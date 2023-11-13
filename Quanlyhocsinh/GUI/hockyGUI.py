@@ -39,7 +39,7 @@ class hoc_kyGUI:
         hienthi.column("TenHocKy",width=145)
         hienthi.column("HeSo",width=145)
 
-        hienthi.place(x=0,y=30,width=500)
+        hienthi.place(x=0,y=30)
         
         
         self.chucnang=Label(self.congcu,bg="white")

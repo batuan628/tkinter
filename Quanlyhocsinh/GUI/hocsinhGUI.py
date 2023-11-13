@@ -2,10 +2,10 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image,ImageTk
 
-class lophocGUI:
-    def __init__(self,root,lophoc,notebook_tab,them,xoa,thoat,reset,luu,bgthongtin):
+class hocsinhGUI:
+    def __init__(self,root,hocsinh,notebook_tab,them,xoa,thoat,reset,luu,bgthongtin):
         self.root=root
-        self.lophoc=lophoc
+        self.hocsinh=hocsinh
         self.notebook_tab=notebook_tab
         self.them=them
         self.xoa=xoa
@@ -14,37 +14,51 @@ class lophocGUI:
         self.luu=luu
         self.bgthongtin=bgthongtin
     
-    def lop_hoc(self):
+    def hoc_sinh(self):
         global nhap_thongtin,thanhcongcu,note_frame
         self.trunglap()
         note_frame=Frame(self.notebook_tab)
-        self.notebook_tab.add(note_frame,text="Lớp")
+        self.notebook_tab.add(note_frame,text="Học sinh")
         self.notebook_tab.select(note_frame)
-        hienthi_lophoc=LabelFrame(note_frame,width=950,height=530,text="Danh sách lớp")
-        hienthi_lophoc.grid(column=0,row=0,padx=1)
+        hienthi_hocsinh=LabelFrame(note_frame,width=950,height=530,text="Danh sách Học sinh")
+        hienthi_hocsinh.grid(column=0,row=0,padx=1)
         nhapthongtin = Label(note_frame,bg="white",width=35,height=35)
         nhapthongtin.grid(column=1,row=0)
         #
         
-        self.congcu=Frame(hienthi_lophoc,bg="white",width=123)
+        self.congcu=Frame(hienthi_hocsinh,bg="white",width=123)
         self.congcu.place(x=0,y=0,width=123,height=30)
-        hienthi=ttk.Treeview(hienthi_lophoc,columns=("MaLop","TenLop","KhoiLop","NamHoc","SiSo","GiaoVien"))
+
+        hienthi=ttk.Treeview(hienthi_hocsinh,columns=("MaHocSinh","HoTen","GioiTinh","NgaySinh","DiaChi","MaDanToc","MaTonGiao","HoTenCha","MaNgheCha","HoTenMe","MaNgheMe","Email"))
+                             
         
-        hienthi.heading("MaLop",text="Mã lớp")
-        hienthi.heading("TenLop",text="Tên lớp")
-        hienthi.heading("KhoiLop",text="Khối lớp")
-        hienthi.heading("NamHoc",text="Năm học")
-        hienthi.heading("SiSo",text="Sĩ Số")
-        hienthi.heading("GiaoVien",text="Giáo Viên")
+        hienthi.heading("MaHocSinh",text="Mã Học sinh")
+        hienthi.heading("HoTen",text="Họ và tên")
+        hienthi.heading("GioiTinh",text="Giới tính")
+        hienthi.heading("NgaySinh",text="Ngày sinh")
+        hienthi.heading("DiaChi",text="Địa chỉ")
+        hienthi.heading("MaDanToc",text="Dân tộc")
+        hienthi.heading("MaTonGiao",text="Tôn giáo")
+        hienthi.heading("HoTenCha",text="Họ tên cha")
+        hienthi.heading("MaNgheCha",text="Nghề nghiệp")
+        hienthi.heading("HoTenMe",text="Họ tên mẹ")
+        hienthi.heading("MaNgheMe",text="Nghề nghiệp")
+        hienthi.heading("Email",text="Email")
         
         hienthi["show"]="headings"
         
-        hienthi.column("MaLop",width=145)
-        hienthi.column("TenLop",width=145)
-        hienthi.column("KhoiLop",width=145)
-        hienthi.column("NamHoc",width=145)
-        hienthi.column("SiSo",width=145)
-        hienthi.column("GiaoVien",width=145)
+        hienthi.column("MaHocSinh",width=75)
+        hienthi.column("HoTen",width=100)
+        hienthi.column("GioiTinh",width=50)
+        hienthi.column("NgaySinh",width=57)
+        hienthi.column("DiaChi",width=90)  
+        hienthi.column("MaDanToc",width=60)
+        hienthi.column("MaTonGiao",width=60)
+        hienthi.column("HoTenCha",width=100)
+        hienthi.column("MaNgheCha",width=75)
+        hienthi.column("HoTenMe",width=100)
+        hienthi.column("MaNgheMe",width=75)
+        hienthi.column("Email",width=100)
         hienthi.place(x=0,y=30)
         
         self.chucnang=Label(self.congcu,bg="white")
@@ -59,7 +73,14 @@ class lophocGUI:
         reset.grid(column=3,row=0,padx=1)
         thoat=Button(self.chucnang,image=self.thoat,relief=FLAT,command=self.thoat_khoi)
         thoat.grid(column=4,row=0,padx=1)
-#
+#       
+        scroll_x=ttk.Scrollbar(hienthi_hocsinh,orient=HORIZONTAL,command=hienthi.xview)
+        scroll_y=ttk.Scrollbar(hienthi_hocsinh,orient=VERTICAL)
+        hienthi.configure(xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
+        
+        scroll_x.place(x=0,y=490,width=940)
+        scroll_y.place(x=935,y=0,height=510)
+        
         nhap_thongtin=Frame(nhapthongtin,highlightbackground="black",highlightthickness=1,bg="white")
         nhap_thongtin.place(x=0,y=0,width=240,height=460)
         thanhcongcu=Frame(nhapthongtin,highlightbackground="black",highlightthickness=1,bg="white")
@@ -79,11 +100,11 @@ class lophocGUI:
             thongtin.place(x=0,y=0,width=240,height=460)
             
             Label(thongtin,text="Nhập liệu thông tin",font=("arial",13,"bold"),width=22,bg="White").grid(row=0,column=0)
-            Label(thongtin,text="Mã lớp:",font=("arial",10),bg="White",anchor="w").grid(row=1,column=0,sticky="W",padx=20)
+            Label(thongtin,text="Mã Học sinh:",font=("arial",10),bg="White",anchor="w").grid(row=1,column=0,sticky="W",padx=20)
             malop=Entry(thongtin,font=("arial",10),highlightbackground="black",highlightthickness=1,width=25)
             malop.grid(row=2,column=0,sticky="W",padx=20)
             
-            Label(thongtin,text="Tên lớp:",font=("arial",10),bg="White",anchor="w").grid(row=3,column=0,sticky="W",padx=20)
+            Label(thongtin,text="Tên Học sinh:",font=("arial",10),bg="White",anchor="w").grid(row=3,column=0,sticky="W",padx=20)
             tenlop=Entry(thongtin,font=("arial",10),highlightbackground="black",highlightthickness=1,width=25)
             tenlop.grid(row=4,column=0,sticky="W",padx=20)
             
@@ -91,7 +112,7 @@ class lophocGUI:
             siso=Entry(thongtin,font=("arial",10),width=25,highlightbackground="black",highlightthickness=1)
             siso.grid(row=6,column=0,sticky="W",padx=20)
             
-            Label(thongtin,text="Khối lớp:",font=("arial",10),bg="White",anchor="w").grid(row=7,column=0,sticky="W",padx=20)
+            Label(thongtin,text="Khối Học sinh:",font=("arial",10),bg="White",anchor="w").grid(row=7,column=0,sticky="W",padx=20)
             khoilop=ttk.Combobox(thongtin,font=("arial",10),width=22)
             khoilop.grid(row=8,column=0,sticky="W",padx=(20,1))
             
@@ -126,9 +147,9 @@ class lophocGUI:
         timkiem.grid(row=2,column=0,sticky="W",padx=20)
         
         x=IntVar()
-        tim_malop=Radiobutton(timkiem_thongtin,text="Tìm theo mã lớp",bg="white",variable=x,value=1)
+        tim_malop=Radiobutton(timkiem_thongtin,text="Tìm theo mã Học sinh",bg="white",variable=x,value=1)
         tim_malop.grid(row=3,column=0,sticky="W",padx=15,pady=(10,5))
-        tim_ten=Radiobutton(timkiem_thongtin,text="Tìm theo tên lớp",bg="white",variable=x,value=2)
+        tim_ten=Radiobutton(timkiem_thongtin,text="Tìm theo tên Học sinh",bg="white",variable=x,value=2)
         tim_ten.grid(row=4,column=0,sticky="W",padx=15)
         timkiem_button=Button(timkiem_thongtin,text="Tìm kiếm",width=25)
         timkiem_button.grid(row=5,column=0,sticky=W,padx=15)
@@ -142,5 +163,5 @@ class lophocGUI:
         for i in self.notebook_tab.tabs():
             kq.append(self.notebook_tab.tab(i,"text"))
         for j in kq:
-            if j =="Lớp":
+            if j =="Học sinh":
                 self.notebook_tab.forget(note_frame)

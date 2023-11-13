@@ -9,7 +9,10 @@ from GUI.hockyGUI import *
 from GUI.namhocGUI import *
 from GUI.monhocGUI import *
 from GUI.diemGUI import *
-
+from GUI.ketquaGUI import *
+from GUI.hoclucGUI import *
+from GUI.hanhkiemGUI import *
+from GUI.hocsinhGUI import *
 
 class MainGui:
     def __init__(self,root):
@@ -149,18 +152,18 @@ class MainGui:
         self.diem.grid(row=0,column=1)
         #
         
-        self.ket_qua=Button(ketqua,image=self.bgketqua,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Kết quả",font=("arial",8),compound=TOP)
+        self.ket_qua=Button(ketqua,image=self.bgketqua,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Kết quả",font=("arial",8),compound=TOP,command=self.ketqua_GUI)
         self.ket_qua.grid(row=0,column=0)
         textketqua=Label(ketqua,text="Kết Quả",font=("arial",8),fg="white",bg="#9999FF").grid(column=0,row=1,columnspan=3)
         
-        self.hocluc=Button(ketqua,image=self.bghocluc,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Học lực",font=("arial",8),compound=TOP)
+        self.hocluc=Button(ketqua,image=self.bghocluc,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Học lực",font=("arial",8),compound=TOP,command=self.hocluc_GUI)
         self.hocluc.grid(row=0,column=1)
         
-        self.hanhkiem=Button(ketqua,image=self.bghanhkiem,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Hạnh kiểm",font=("arial",8),compound=TOP)
+        self.hanhkiem=Button(ketqua,image=self.bghanhkiem,bg="#CCFFFF",height=63,width=50,relief=FLAT,text="Hạnh kiểm",font=("arial",8),compound=TOP,command=self.hanhkiem_GUI)
         self.hanhkiem.grid(row=0,column=2)
         #
         
-        self.hoc_sinh=Button(hocsinhtrai,image=self.bghocsinh,bg="#CCFFFF",height=59,width=50,relief=FLAT,text="Học sinh",fg="black",compound=TOP)
+        self.hoc_sinh=Button(hocsinhtrai,image=self.bghocsinh,bg="#CCFFFF",height=59,width=50,relief=FLAT,text="Học sinh",fg="black",compound=TOP,command=self.hocsinh_GUI)
         self.hoc_sinh.grid(row=0,column=0)
         texthocsinh=Label(hocsinh,text="Học sinh",font=("arial",8),fg="white",bg="#9999FF").grid(columnspan=3)
         
@@ -284,5 +287,23 @@ class MainGui:
         
         hienthi_diem = diemGUI(self.root,self.diem,notebook_tab,self.bg_thoat,self.bgluu,self.bgthongtin,self.bgthem)
         hienthi_diem.nhap_diem()
-        notebook_tab.select()
+    
+    def ketqua_GUI(self):
+        hienthi_ketqua = ket_quaGUI(self.root,self.ket_qua,notebook_tab,self.bgthem,
+                                    self.bgxoa,self.bg_thoat,self.bgluu)
+        hienthi_ketqua.ket_qua()
         
+    def hocluc_GUI(self):
+        hienthi_hocluc = hoc_lucGUI(self.root,self.hocluc,notebook_tab,self.bgthem,
+                                    self.bgxoa,self.bg_thoat,self.bgluu)
+        hienthi_hocluc.hoc_luc()
+    
+    def hanhkiem_GUI(self):
+        hienthi_hanhkiem = hanh_kiemGUI(self.root,self.hanhkiem,notebook_tab,self.bgthem,
+                                    self.bgxoa,self.bg_thoat,self.bgluu)
+        hienthi_hanhkiem.hanh_kiem()
+
+    def hocsinh_GUI(self):
+        hienthi_hocsinh = hocsinhGUI(self.root,self.hoc_sinh,notebook_tab,self.bgthem,
+                                    self.bgxoa,self.bg_thoat,self.bgreset,self.bgluu,self.bgthongtin)
+        hienthi_hocsinh.hoc_sinh()
