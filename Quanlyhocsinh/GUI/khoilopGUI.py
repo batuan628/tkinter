@@ -14,12 +14,13 @@ class khoi_lopGUI:
         
     def khoi_lop(self):
         global nhap_thongtin,thanhcongcu
+        khoilop_frame=Frame(self.notebook_tab)
+        self.notebook_tab.add(khoilop_frame,text="Khối lớp")
+        self.notebook_tab.select(khoilop_frame)
         
-        note_frame=Frame(self.notebook_tab)
-        self.notebook_tab.add(note_frame,text="Khối lớp")
-        hienthi_lop=LabelFrame(note_frame,width=950,height=530,text="Danh sách lớp")
+        hienthi_lop=LabelFrame(khoilop_frame,width=950,height=530,text="Danh sách lớp")
         hienthi_lop.grid(column=0,row=0,padx=1)
-        nhapthongtin = Label(note_frame,bg="white",width=35,height=35)
+        nhapthongtin = Label(khoilop_frame,bg="white",width=35,height=35)
         nhapthongtin.grid(column=1,row=0)
         #
         

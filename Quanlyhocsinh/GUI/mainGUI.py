@@ -263,40 +263,26 @@ class MainGui:
         hienthi_lop_hoc = lophocGUI(self.root,self.lophoc,notebook_tab,self.bgthem,
                                     self.bgxoa,self.bg_thoat,self.bgreset,self.bgluu,self.bgthongtin)
         hienthi_lop_hoc.lop_hoc()
-        self.dem()
     def khoilop_GUI(self):
         hienthi_khoilop = khoi_lopGUI(self.root,self.khoilop,notebook_tab,self.bgthem,
                                     self.bgxoa,self.bg_thoat,self.bgluu)
         hienthi_khoilop.khoi_lop()
-        self.dem()
+        
     def hocky_GUI(self):
         hienthi_hocky = hoc_kyGUI(self.root,self.hocky,notebook_tab,self.bgthem,
                                     self.bgxoa,self.bg_thoat,self.bgluu)
         hienthi_hocky.hoc_ky()
-        self.dem()
     def namhoc_GUI(self):
         hienthi_namhoc = nam_hocGUI(self.root,self.nam_hoc,notebook_tab,self.bgthem,
                                     self.bgxoa,self.bg_thoat,self.bgluu)
         hienthi_namhoc.nam_hoc()
-        self.dem()
     def monhoc_GUI(self):
         hienthi_monhoc = mon_hocGUI(self.root,self.mon_hoc,notebook_tab,self.bgthem,
                                     self.bgxoa,self.bg_thoat,self.bgluu)
         hienthi_monhoc.mon_hoc()
-        self.dem()
     def diem_GUI(self):
+        
         hienthi_diem = diemGUI(self.root,self.diem,notebook_tab,self.bg_thoat,self.bgluu,self.bgthongtin,self.bgthem)
         hienthi_diem.nhap_diem()
-        self.dem()
-    
-    def dem(self):
-        notebook_tab.select(len(notebook_tab.tabs())-1)
-        
-        
-            
-        
-        
-        
-        
-        
+        notebook_tab.select()
     

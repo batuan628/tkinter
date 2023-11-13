@@ -19,6 +19,7 @@ class lophocGUI:
         
         note_frame=Frame(self.notebook_tab)
         self.notebook_tab.add(note_frame,text="Lớp")
+        self.notebook_tab.select(note_frame)
         hienthi_lophoc=LabelFrame(note_frame,width=950,height=530,text="Danh sách lớp")
         hienthi_lophoc.grid(column=0,row=0,padx=1)
         nhapthongtin = Label(note_frame,bg="white",width=35,height=35)
