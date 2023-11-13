@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from PIL import Image,ImageTk
+from GUI.database_mysql import *
 
 class hocsinhGUI:
     def __init__(self,root,hocsinh,notebook_tab,them,xoa,thoat,reset,luu,bgthongtin):
@@ -15,7 +16,7 @@ class hocsinhGUI:
         self.bgthongtin=bgthongtin
     
     def hoc_sinh(self):
-        global nhap_thongtin,thanhcongcu,note_frame
+        global nhap_thongtin,thanhcongcu,note_frame,hienthi
         self.trunglap()
         note_frame=Frame(self.notebook_tab)
         self.notebook_tab.add(note_frame,text="Học sinh")
@@ -28,10 +29,15 @@ class hocsinhGUI:
         
         self.congcu=Frame(hienthi_hocsinh,bg="white",width=123)
         self.congcu.place(x=0,y=0,width=123,height=30)
-
-        hienthi=ttk.Treeview(hienthi_hocsinh,columns=("MaHocSinh","HoTen","GioiTinh","NgaySinh","DiaChi","MaDanToc","MaTonGiao","HoTenCha","MaNgheCha","HoTenMe","MaNgheMe","Email"))
-                             
         
+        hienthi=ttk.Treeview(hienthi_hocsinh,columns=("MaHocSinh","HoTen","GioiTinh","NgaySinh","DiaChi","MaDanToc","MaTonGiao","HoTenCha","MaNgheCha","HoTenMe","MaNgheMe","Email")
+                             )
+        scroll_x=ttk.Scrollbar(hienthi_hocsinh,orient="horizontal" )
+        scroll_y=ttk.Scrollbar(hienthi_hocsinh,orient=VERTICAL)                   
+        hienthi.configure(xscrollcommand=scroll_x.set)
+        hienthi.configure(yscrollcommand=scroll_y.set)
+        scroll_x.place(x=0,y=490,width=940)
+        scroll_y.place(x=930,y=0,height=490)
         hienthi.heading("MaHocSinh",text="Mã Học sinh")
         hienthi.heading("HoTen",text="Họ và tên")
         hienthi.heading("GioiTinh",text="Giới tính")
@@ -55,11 +61,11 @@ class hocsinhGUI:
         hienthi.column("MaDanToc",width=60)
         hienthi.column("MaTonGiao",width=60)
         hienthi.column("HoTenCha",width=100)
-        hienthi.column("MaNgheCha",width=75)
+        hienthi.column("MaNgheCha",width=100)
         hienthi.column("HoTenMe",width=100)
-        hienthi.column("MaNgheMe",width=75)
+        hienthi.column("MaNgheMe",width=100)
         hienthi.column("Email",width=100)
-        hienthi.place(x=0,y=30)
+        hienthi.place(x=0,y=30,height=450)
         
         self.chucnang=Label(self.congcu,bg="white")
         self.chucnang.grid(row=0,column=0)
@@ -74,12 +80,9 @@ class hocsinhGUI:
         thoat=Button(self.chucnang,image=self.thoat,relief=FLAT,command=self.thoat_khoi)
         thoat.grid(column=4,row=0,padx=1)
 #       
-        scroll_x=ttk.Scrollbar(hienthi_hocsinh,orient=HORIZONTAL,command=hienthi.xview)
-        scroll_y=ttk.Scrollbar(hienthi_hocsinh,orient=VERTICAL)
-        hienthi.configure(xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
         
-        scroll_x.place(x=0,y=490,width=940)
-        scroll_y.place(x=935,y=0,height=510)
+        
+        
         
         nhap_thongtin=Frame(nhapthongtin,highlightbackground="black",highlightthickness=1,bg="white")
         nhap_thongtin.place(x=0,y=0,width=240,height=460)
@@ -93,6 +96,7 @@ class hocsinhGUI:
         timkiem=Button(thanhcongcu,width=228,text="    Tìm kiếm thông tin",image=self.bgthongtin,compound=LEFT,anchor='w',relief=RIDGE,height=20,command=self.tim_kiem)
         timkiem.grid(row=1,column=0,sticky="E")
         self.thong_tin()
+        self.fatch_data()
         
     def thong_tin(self):
             
@@ -165,3 +169,15 @@ class hocsinhGUI:
         for j in kq:
             if j =="Học sinh":
                 self.notebook_tab.forget(note_frame)
+    def fatch_data(self):
+        db_obj = SQLConn()
+        self.__db_conn = db_obj.create_conn()
+        self.__db_cur = self.__db_conn.cursor()
+        self.__db_cur.execute("select * from hocsinh")
+        rows = self.__db_cur.fetchall()
+        if len(rows)!=0:
+            hienthi.delete(*hienthi.get_children())
+            for i in rows:
+                hienthi.insert("",END,value=i)
+            self.__db_conn.commit()
+        self.__db_conn.close()
