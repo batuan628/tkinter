@@ -30,45 +30,76 @@ class hocsinhGUI:
         self.congcu=Frame(hienthi_hocsinh,bg="white",width=123)
         self.congcu.place(x=0,y=0,width=123,height=30)
         
-        hienthi=ttk.Treeview(hienthi_hocsinh,columns=("MaHocSinh","HoTen","GioiTinh","NgaySinh","DiaChi","MaDanToc","MaTonGiao","HoTenCha","MaNgheCha","HoTenMe","MaNgheMe","Email")
-                             )
-        scroll_x=ttk.Scrollbar(hienthi_hocsinh,orient="horizontal" )
-        scroll_y=ttk.Scrollbar(hienthi_hocsinh,orient=VERTICAL)                   
-        hienthi.configure(xscrollcommand=scroll_x.set)
-        hienthi.configure(yscrollcommand=scroll_y.set)
-        scroll_x.place(x=0,y=490,width=940)
-        scroll_y.place(x=930,y=0,height=490)
-        hienthi.heading("MaHocSinh",text="Mã Học sinh")
-        hienthi.heading("HoTen",text="Họ và tên")
-        hienthi.heading("GioiTinh",text="Giới tính")
-        hienthi.heading("NgaySinh",text="Ngày sinh")
-        hienthi.heading("DiaChi",text="Địa chỉ")
-        hienthi.heading("MaDanToc",text="Dân tộc")
-        hienthi.heading("MaTonGiao",text="Tôn giáo")
-        hienthi.heading("HoTenCha",text="Họ tên cha")
-        hienthi.heading("MaNgheCha",text="Nghề nghiệp")
-        hienthi.heading("HoTenMe",text="Họ tên mẹ")
-        hienthi.heading("MaNgheMe",text="Nghề nghiệp")
-        hienthi.heading("Email",text="Email")
+        # hienthi=ttk.Treeview(hienthi_hocsinh,columns=("MaHocSinh","HoTen","GioiTinh","NgaySinh","DiaChi","MaDanToc","MaTonGiao","HoTenCha","MaNgheCha","HoTenMe","MaNgheMe","Email")
+        #                      )
+        # scroll_x=ttk.Scrollbar(hienthi_hocsinh,orient=HORIZONTAL)
+        # scroll_y=ttk.Scrollbar(hienthi_hocsinh,orient=VERTICAL)                   
+        # hienthi.configure(xscrollcommand=scroll_x.set)
+        # hienthi.configure(yscrollcommand=scroll_y.set)
+        # scroll_x.place(x=0,y=490,width=940)
+        # scroll_y.place(x=930,y=0,height=490)
+        # hienthi.heading("MaHocSinh",text="Mã Học sinh")
+        # hienthi.heading("HoTen",text="Họ và tên")
+        # hienthi.heading("GioiTinh",text="Giới tính")
+        # hienthi.heading("NgaySinh",text="Ngày sinh")
+        # hienthi.heading("DiaChi",text="Địa chỉ")
+        # hienthi.heading("MaDanToc",text="Dân tộc")
+        # hienthi.heading("MaTonGiao",text="Tôn giáo")
+        # hienthi.heading("HoTenCha",text="Họ tên cha")
+        # hienthi.heading("MaNgheCha",text="Nghề nghiệp")
+        # hienthi.heading("HoTenMe",text="Họ tên mẹ")
+        # hienthi.heading("MaNgheMe",text="Nghề nghiệp")
+        # hienthi.heading("Email",text="Email")
         
-        hienthi["show"]="headings"
+        # hienthi["show"]="headings"
         
-        hienthi.column("MaHocSinh",width=75)
-        hienthi.column("HoTen",width=100)
-        hienthi.column("GioiTinh",width=50)
-        hienthi.column("NgaySinh",width=57)
-        hienthi.column("DiaChi",width=90)  
-        hienthi.column("MaDanToc",width=60)
-        hienthi.column("MaTonGiao",width=60)
-        hienthi.column("HoTenCha",width=100)
-        hienthi.column("MaNgheCha",width=100)
-        hienthi.column("HoTenMe",width=100)
-        hienthi.column("MaNgheMe",width=100)
-        hienthi.column("Email",width=100)
+        # hienthi.column("MaHocSinh",width=75)
+        # hienthi.column("HoTen",width=100)
+        # hienthi.column("GioiTinh",width=50)
+        # hienthi.column("NgaySinh",width=57)
+        # hienthi.column("DiaChi",width=90)  
+        # hienthi.column("MaDanToc",width=60)
+        # hienthi.column("MaTonGiao",width=60)
+        # hienthi.column("HoTenCha",width=100)
+        # hienthi.column("MaNgheCha",width=100)
+        # hienthi.column("HoTenMe",width=100)
+        # hienthi.column("MaNgheMe",width=100)
+        # hienthi.column("Email",width=100)
+        # hienthi.place(x=0,y=30,height=450)
+        db_obj = SQLConn()
+        self.__db_conn = db_obj.create_conn()
+        self.__db_cur = self.__db_conn.cursor()
+        h=self.__db_cur.execute("DESCRIBE hocsinh")
+        rows = self.__db_cur.fetchall()
+        g=[]
+        for i in rows:
+            g.append(i[0])
+        
+        a=self.__db_cur.execute("select * from hocsinh")
+        b=self.__db_cur.fetchall()
+            
+        
+        hienthi=ttk.Treeview(hienthi_hocsinh,columns=g,show="headings",height=10)
         hienthi.place(x=0,y=30,height=450)
+        
+        for i in g:
+            hienthi.column(i,anchor="c",width=75,stretch=False)
+            hienthi.heading(i,text=i)
+        hienthi.column("HoTen",width=110)
+        hienthi.column("Email",width=120)
+        hienthi.column("GioiTinh",width=40)
+        for row in b:
+            hienthi.insert("","end",iid=row[0],text=row[0],values=list(row))
+        vs = ttk.Scrollbar(hienthi_hocsinh,orient="vertical",command=hienthi.yview)
+        hienthi.configure(yscrollcommand=vs.set)
+        vs.place(x=0,y=50,height=430)
+        vy = ttk.Scrollbar(hienthi_hocsinh,orient="horizontal",command=hienthi.xview)
+        hienthi.configure(xscrollcommand=vy.set)
+        vy.place(x=0,y=490,width=940)
         
         self.chucnang=Label(self.congcu,bg="white")
         self.chucnang.grid(row=0,column=0)
+        
         them=Button(self.chucnang,image=self.them,relief=FLAT,bg="white")
         them.grid(column=0,row=0,padx=1)
         luu=Button(self.chucnang,image=self.luu,relief=FLAT,bg="white")
@@ -96,8 +127,7 @@ class hocsinhGUI:
         timkiem=Button(thanhcongcu,width=228,text="    Tìm kiếm thông tin",image=self.bgthongtin,compound=LEFT,anchor='w',relief=RIDGE,height=20,command=self.tim_kiem)
         timkiem.grid(row=1,column=0,sticky="E")
         self.thong_tin()
-        self.fatch_data()
-        
+       
     def thong_tin(self):
             
             thongtin=Frame(nhap_thongtin,bg="white")
@@ -169,15 +199,3 @@ class hocsinhGUI:
         for j in kq:
             if j =="Học sinh":
                 self.notebook_tab.forget(note_frame)
-    def fatch_data(self):
-        db_obj = SQLConn()
-        self.__db_conn = db_obj.create_conn()
-        self.__db_cur = self.__db_conn.cursor()
-        self.__db_cur.execute("select * from hocsinh")
-        rows = self.__db_cur.fetchall()
-        if len(rows)!=0:
-            hienthi.delete(*hienthi.get_children())
-            for i in rows:
-                hienthi.insert("",END,value=i)
-            self.__db_conn.commit()
-        self.__db_conn.close()
