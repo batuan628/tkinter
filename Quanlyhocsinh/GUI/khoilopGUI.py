@@ -13,7 +13,8 @@ class khoi_lopGUI:
         self.luu=luu
         
     def khoi_lop(self):
-        global nhap_thongtin,thanhcongcu
+        global nhap_thongtin,khoilop_frame
+        self.trunglap()
         khoilop_frame=Frame(self.notebook_tab)
         self.notebook_tab.add(khoilop_frame,text="Khối lớp")
         self.notebook_tab.select(khoilop_frame)
@@ -71,3 +72,10 @@ class khoi_lopGUI:
     def thoat_khoi(self):
         
         self.notebook_tab.forget(self.notebook_tab.index(self.notebook_tab.select()))
+    def trunglap(self):
+        kq=[]
+        for i in self.notebook_tab.tabs():
+            kq.append(self.notebook_tab.tab(i,"text"))
+        for j in kq:
+            if j =="Khối lớp":
+                self.notebook_tab.forget(khoilop_frame)

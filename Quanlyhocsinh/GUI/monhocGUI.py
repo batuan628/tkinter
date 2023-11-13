@@ -13,8 +13,8 @@ class mon_hocGUI:
         self.luu=luu
         
     def mon_hoc(self):
-        global nhap_thongtin
-        
+        global nhap_thongtin,note_frame
+        self.trunglap()
         note_frame=Frame(self.notebook_tab)
         self.notebook_tab.add(note_frame,text="Môn học")
         self.notebook_tab.select(note_frame)
@@ -84,3 +84,11 @@ class mon_hocGUI:
     def thoat_khoi(self):
         
         self.notebook_tab.forget(self.notebook_tab.index(self.notebook_tab.select()))
+    
+    def trunglap(self):
+        kq=[]
+        for i in self.notebook_tab.tabs():
+            kq.append(self.notebook_tab.tab(i,"text"))
+        for j in kq:
+            if j =="Môn học":
+                self.notebook_tab.forget(note_frame)

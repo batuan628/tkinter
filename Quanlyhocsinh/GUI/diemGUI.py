@@ -13,11 +13,13 @@ class diemGUI:
         self.them=them
         
     def nhap_diem(self):
-        global nhap_thongtin
-        
+        global nhap_thongtin,title,note_frame
+        title = "Điểm"
+        self.trunglap()
         note_frame=Frame(self.notebook_tab)
         self.notebook_tab.add(note_frame,text="Điểm")
         self.notebook_tab.select(note_frame)
+        
         hienthi_diem=LabelFrame(note_frame,width=950,height=530,text="Danh sách điểm")
         hienthi_diem.grid(column=0,row=0,padx=1)
         nhapthongtin = Label(note_frame,bg="white",width=35,height=35)
@@ -160,3 +162,14 @@ class diemGUI:
     def thoat_khoi(self):
         
         self.notebook_tab.forget(self.notebook_tab.index(self.notebook_tab.select()))
+    
+    def trunglap(self):
+        kq=[]
+        for i in self.notebook_tab.tabs():
+            kq.append(self.notebook_tab.tab(i,"text"))
+        for j in kq:
+            if j ==title:
+                self.notebook_tab.forget(note_frame)
+                
+                
+                

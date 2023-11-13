@@ -13,11 +13,12 @@ class hoc_kyGUI:
         self.luu=luu
         
     def hoc_ky(self):
-        global nhap_thongtin,thanhcongcu
-        
+        global nhap_thongtin,note_frame
+        self.trunglap()
         note_frame=Frame(self.notebook_tab)
         self.notebook_tab.add(note_frame,text="Học Kỳ")
         self.notebook_tab.select(note_frame)
+        
         hienthi_hocky=LabelFrame(note_frame,width=950,height=530,text="Danh sách học kỳ")
         hienthi_hocky.grid(column=0,row=0,padx=1)
         nhapthongtin = Label(note_frame,bg="white",width=35,height=35)
@@ -76,3 +77,11 @@ class hoc_kyGUI:
     def thoat_khoi(self):
         
         self.notebook_tab.forget(self.notebook_tab.index(self.notebook_tab.select()))
+    
+    def trunglap(self):
+        kq=[]
+        for i in self.notebook_tab.tabs():
+            kq.append(self.notebook_tab.tab(i,"text"))
+        for j in kq:
+            if j =="Học Kỳ":
+                self.notebook_tab.forget(note_frame)

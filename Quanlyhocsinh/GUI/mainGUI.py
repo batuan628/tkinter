@@ -285,4 +285,4 @@ class MainGui:
         hienthi_diem = diemGUI(self.root,self.diem,notebook_tab,self.bg_thoat,self.bgluu,self.bgthongtin,self.bgthem)
         hienthi_diem.nhap_diem()
         notebook_tab.select()
-    
+        
